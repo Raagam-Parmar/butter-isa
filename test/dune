@@ -1,2 +1,4 @@
 (test
- (name test_butter_isa))
+ (name test_butter_isa)
+ (libraries butter_isa)
+)
