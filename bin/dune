@@ -1,0 +1,4 @@
+(executable
+ (public_name butter-isa)
+ (name main)
+ (libraries butter_isa))
