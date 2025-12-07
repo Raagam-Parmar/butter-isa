@@ -1,2 +1,4 @@
 (library
- (name butter_isa))
+ (name butter_isa)
+ (modules isa ram simulate modN register regfile)
+)
