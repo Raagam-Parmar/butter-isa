@@ -1,15 +1,16 @@
 (lang dune 3.20)
+(using menhir 3.0)
 
 (name butter-isa)
 
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github Raagam-Parmar/butter-isa))
 
-(authors "Author Name <author@example.com>")
+(authors "Raagam Parmar <raagamparmar@gmail.com>")
 
-(maintainers "Maintainer Name <maintainer@example.com>")
+(maintainers "Raagam Parmar <raagamparmar@gmail.com>")
 
 (license LICENSE)
 
@@ -17,7 +18,7 @@
 
 (package
  (name butter-isa)
- (synopsis "A short synopsis")
+ (synopsis "An 8-bit ISA for a breadboard computer")
  (description "A longer description")
  (depends ocaml)
  (tags
