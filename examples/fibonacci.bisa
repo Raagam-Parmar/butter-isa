@@ -1,0 +1,22 @@
+/*
+extern int n;
+int a = 0;
+int b = 1;
+int * arr = (int *) 0;
+
+int i = 0;
+while (i < n) {
+    // a = fib i
+    // b = fib i+1
+
+    arr[i] = a; // store fib i
+
+    // update fib numbers
+    int tmp = a;
+    a = b;
+    b = b + tmp;
+    // a = fib i+1
+    // b = fib i+2
+    i = i + 1;
+}
+*/
