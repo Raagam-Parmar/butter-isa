@@ -58,9 +58,7 @@ let step state =
       Mod256.create
         (Mod16.to_int imm4)
     in
-    let vr0_old = Regfile.read regfile R0 in
-    let vr0_new = Mod256.logor imm8 vr0_old in
-    let () = Regfile.write regfile R0 vr0_new in
+    let () = Regfile.write regfile R0 imm8 in
     { state with pc = Mod256.succ pc }
 
   | Move (rs1, rs2) ->
@@ -78,7 +76,7 @@ let step state =
   | Sub (rs1, rs2) ->
     let vrs1 = Regfile.read regfile rs1 in
     let vrs2 = Regfile.read regfile rs2 in
-    let vdiff = Mod256.add vrs1 vrs2 in
+    let vdiff = Mod256.sub vrs1 vrs2 in
     let () = Regfile.write regfile rs1 vdiff in
     { state with pc = Mod256.succ pc }
 
@@ -107,7 +105,7 @@ let step state =
     let vrs2 = Regfile.read regfile rs2 in
     let pc' =
       if vrs1 = Mod256.zero then vrs2
-      else pc
+      else Mod256.succ pc
     in
     { state with pc = pc' }
 
@@ -116,7 +114,7 @@ let step state =
     let vrs2 = Regfile.read regfile rs2 in
     let pc' =
       if vrs1 < Mod256.zero then vrs2
-      else pc
+      else Mod256.succ pc
     in
     { state with pc = pc' }
 
@@ -153,7 +151,7 @@ let pp state =
   (* let length = state.length in *)
   let ram = state.ram in
   let regfile = state.regfile in
-  (* let pc = state.pc in *)
+  let pc = state.pc in
   (* let int_pc = Mod256.to_int pc in *)
   (* let inst = Ram.read rom int_pc in *)
 
@@ -161,7 +159,13 @@ let pp state =
   let () = Array.iter (fun m -> Printf.printf "%s\n" (Mod256.to_string m)) ram in
   let () = Printf.printf "\nRegFile:\n" in
   let () = Array.iter (fun m -> Printf.printf "%s\n" (Mod256.to_string m)) regfile in
+  let () = Printf.printf "\nPC: %s\n" (Mod256.to_string pc) in
   ()
+
+
+let rec step_n state n =
+  if n = 0 then state
+  else step_n (step state) (n-1)
 
 
 let rec run_from state =

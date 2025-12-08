@@ -2,10 +2,10 @@
 
 |  Sr.No.  |     Instructions     |        Description        |      Encoding      |  Type  |
 |----------|----------------------|---------------------------|--------------------|--------|
-|    00    |  load    rs1  [rs2]  |  rs1 = RAM[rs2]           |  [0000] [s1] [s2]  |   RR   |
-|    01    |  store   rs1  [rs2]  |  RAM[rs2] = rs1           |  [0001] [s1] [s2]  |   RR   |
+|    00    |  load    rs1   rs2   |  rs1 = RAM[rs2]           |  [0000] [s1] [s2]  |   RR   |
+|    01    |  store   rs1   rs2   |  RAM[rs2] = rs1           |  [0001] [s1] [s2]  |   RR   |
 |    02    |  lui           imm   |  r0[7:4] = imm            |  [0010] [--] [im]  |   I    |
-|    03    |  lli           imm   |  r0[3:0] = imm            |  [0011] [--] [im]  |   I    |
+|    03    |  lli           imm   |  r0 = imm                 |  [0011] [--] [im]  |   I    |
 |    04    |  mov     rs1   rs2   |  rs1 = rs2                |  [0101] [s1] [s2]  |   RR   |
 |    05    |  add     rs1   rs2   |  rs1 = rs1 + rs2          |  [0100] [s1] [s2]  |   RR   |
 |    06    |  sub     rs1   rs2   |  rs1 = rs1 - rs2          |  [0110] [s1] [s2]  |   RR   |
