@@ -1,7 +1,7 @@
 (lang dune 3.20)
 (using menhir 3.0)
 
-(name butter-isa)
+(name butter)
 
 (generate_opam_files false)
 
@@ -17,7 +17,7 @@
 (documentation https://url/to/documentation)
 
 (package
- (name butter-isa)
+ (name butter)
  (synopsis "An 8-bit ISA for a breadboard computer")
  (description "A longer description")
  (depends ocaml)

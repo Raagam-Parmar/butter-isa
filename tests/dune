@@ -1,4 +1,4 @@
 (tests
  (names test_random_a test_multiply)
- (libraries butter_isa)
+ (libraries butter_sim)
 )

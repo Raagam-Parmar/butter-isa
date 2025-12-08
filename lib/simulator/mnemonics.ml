@@ -1,6 +1,6 @@
-open Isa
-open Register
-open Simulate
+open Butter_isa.Isa
+open Butter_isa.Register
+open Common
 
 let r0 = R0
 let r1 = R1

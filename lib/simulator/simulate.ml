@@ -1,9 +1,8 @@
-open Isa
+open Butter_isa.Isa
+open Common
 
 exception PCOutOfBounds
 
-module Mod256 = ModN.Make(struct let modulus = 256 end)
-module Mod16 = ModN.Make(struct let modulus = 16 end)
 
 type 'a state =
   { rom: Mod16.t instruction Ram.t;

@@ -1,0 +1,4 @@
+(library
+ (name butter_isa)
+ (modules isa register)
+)

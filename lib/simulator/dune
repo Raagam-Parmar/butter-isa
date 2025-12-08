@@ -1,0 +1,5 @@
+(library
+ (name butter_sim)
+ (libraries butter_isa)
+ (modules ram simulate modN regfile mnemonics common)
+)

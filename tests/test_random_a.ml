@@ -1,5 +1,5 @@
-open Butter_isa.Simulate
-open Butter_isa.Mnemonics
+open Butter_sim.Simulate
+open Butter_sim.Mnemonics
 
 let random_a =
   [|

@@ -1,3 +1,5 @@
+open Butter_isa
+
 type 'a t = 'a Array.t
 
 let create x = Array.make 4 x
