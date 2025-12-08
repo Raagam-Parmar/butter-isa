@@ -1,6 +1,6 @@
 open Butter_isa.Isa
 open Butter_isa.Register
-open Common
+open Common.Modulo
 
 let r0 = R0
 let r1 = R1

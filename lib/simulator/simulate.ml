@@ -1,5 +1,5 @@
 open Butter_isa.Isa
-open Common
+open Common.Modulo
 
 exception PCOutOfBounds
 
