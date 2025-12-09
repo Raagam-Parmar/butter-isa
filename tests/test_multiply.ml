@@ -1,40 +1,49 @@
 open Butter_sim.Simulate
-open Butter_isa.Mnemonics
+open Butter_as.Assembler
 
-let multiply a b =
-  [|
-    (* Setup *)
-    li_lo a;
-    li_hi a;
-    mov r1 r0;
+let rec to_array = function
+  | [] -> [||]
+  | x :: xs -> Array.append [|x|] (to_array xs)
 
-    li_lo b;
-    li_hi b;
-    mov r2 r0;
+let multiply =
+  "
+  # multiply two numbers a and b
+  # where a is in r1
+  # and   b is in r2
+  # result is stored in r3
 
-    (* Calculation *)
-    lli 0;
-    mov r3 r0;
+  # setup
+      li   15     # r1 = a
+      mov  r1 r0
 
-    (* LOOP *)
-    li_lo 16;
-    li_hi 16;
-    beqz r1 r0;
+      li   17
+      mov  r2 r0 # r2 = b
 
-    add r3 r2;
+  # calcuation
 
-    lli 1;
-    sub r1 r0;
+  # setup accumulator
+      li   0     # r3 = 0
+      mov  r3 r0
 
-    li_lo 8;
-    li_hi 8;
-    jump r0;
+  LOOP:
+      la   HALT  # if a = 0 then halt
+      beqz r1 r0
 
-    (* HALT *)
-    stpc r0;
-    jump r0;
-  |]
+      add  r3 r2 # acc += b
 
-let init_state = init (multiply 15 17)
+      lli  1     # r1 -= 1
+      sub  r1 r0
+
+      la   LOOP
+      jump r0
+
+  HALT:
+      stpc r0
+      jump r0
+  "
+
+
+let assembled = to_array (assemble (parse multiply))
+let init_state = init assembled
 let final_state = step_n init_state 200
 let () = pp final_state
