@@ -1,4 +1,5 @@
 (library
  (name butter_isa)
- (modules isa register)
+ (modules base mnemonics register)
+ (libraries common)
 )
