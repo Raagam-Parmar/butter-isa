@@ -1,7 +1,7 @@
 # multiply two numbers a and b
 # where a is in r1
-# and b is in r2
-# result is to be stored in r3
+# and   b is in r2
+# result is stored in r3
 
 # setup
     li   a     # r1 = a

@@ -1,7 +1,6 @@
 {
   open Parser
   open Butter_isa
-  open Common.Modulo
 }
 
 let space        = [' ' '\t']
@@ -22,13 +21,16 @@ let label        = lbl_char+
 
 rule read =
   parse
-  | eof         { EOF   }
+  | eof         { EOF }
 
-  | "load"      { LOAD }
+  | "load"      { LOAD  }
   | "store"     { STORE }
 
   | "lui"       { LUI }
   | "lli"       { LLI }
+  | "li"        { LI  }
+  | "la"        { LA  }
+
   | "mov"       { MOV }
   | "add"       { ADD }
   | "sub"       { SUB }
@@ -38,6 +40,11 @@ rule read =
 
   | "beqz"      { BEQZ }
   | "bltz"      { BLTZ }
+  | "bgez"      { BGEZ }
+  | "bgtz"      { BGTZ }
+  | "blez"      { BLEZ }
+  | "bnez"      { BNEZ }
+
   | "jump"      { JUMP }
   | "stpc"      { STPC }
 
@@ -49,7 +56,7 @@ rule read =
   | "r2"        { REG (Register.R2) }
   | "r3"        { REG (Register.R3) }
 
-  | int         { IMM (Mod16.create (int_of_string (Lexing.lexeme lexbuf))) }
+  | int         { IMM (int_of_string (Lexing.lexeme lexbuf)) }
 
   | ':'         { COLON }
   | label       { LABEL (Lexing.lexeme lexbuf) }
@@ -60,5 +67,5 @@ rule read =
 and skipComment =
   parse
   | [^'\n']     { skipComment lexbuf }
-  | eof         { EOF }
-  | _           { read lexbuf }
+  | eof         { EOF                }
+  | _           { read lexbuf        }

@@ -1,5 +1,5 @@
 %{
-  open Butter_isa.Isa
+  open Ast
 %}
 
 %token EOF
@@ -9,6 +9,8 @@
 
 %token LUI
 %token LLI
+%token LI
+%token LA
 
 %token MOV
 %token ADD
@@ -19,6 +21,11 @@
 
 %token BEQZ
 %token BLTZ
+%token BGEZ
+%token BGTZ
+%token BLEZ
+%token BNEZ
+
 %token JUMP
 %token STPC
 
@@ -26,21 +33,17 @@
 %token IPAGE
 
 %token <Butter_isa.Register.t> REG
-%token <Common.Modulo.Mod16.t> IMM
+%token <int> IMM
 
 %token COLON
 %token <string> LABEL
 
-%start <(Common.Modulo.Mod16.t, string) Ast.program> main
+%start <(int, string) Ast.program> main
 
 %%
 
 let main :=
-  | blk=block*; EOF;          { blk }
-
-let block :=
-  | label=LABEL; COLON; body=instruction*;
-    { Ast.{label=label; body=body} }
+  | is=instruction*; EOF;     { is }
 
 let instruction :=
   | LOAD ; rs1=REG; rs2=REG;  { Load  (rs1, rs2) }
@@ -48,6 +51,8 @@ let instruction :=
 
   | LUI  ;          imm=IMM;  { Lui         imm  }
   | LLI  ;          imm=IMM;  { Lli         imm  }
+  | LI   ;     imm=IMM     ;  { Li      imm      }
+  | LA   ;     lbl=LABEL   ;  { La      lbl      }
 
   | MOV  ; rs1=REG; rs2=REG;  { Move  (rs1, rs2) }
   | ADD  ; rs1=REG; rs2=REG;  { Add   (rs1, rs2) }
@@ -58,8 +63,15 @@ let instruction :=
 
   | BEQZ ; rs1=REG; rs2=REG;  { Beqz  (rs1, rs2) }
   | BLTZ ; rs1=REG; rs2=REG;  { Bltz  (rs1, rs2) }
+  | BGEZ ; rs1=REG; rs2=REG;  { Bgez  (rs1, rs2) }
+  | BGTZ ; rs1=REG; rs2=REG;  { Bgtz  (rs1, rs2) }
+  | BLEZ ; rs1=REG; rs2=REG;  { Blez  (rs1, rs2) }
+  | BNEZ ; rs1=REG; rs2=REG;  { Bnez  (rs1, rs2) }
+
   | JUMP ;          rs2=REG;  { Jump        rs2  }
   | STPC ; rs1=REG         ;  { StPC   rs1       }
 
   | DPAGE;          rs2=REG;  { DPage       rs2  }
   | IPAGE;          rs2=REG;  { IPage       rs2  }
+
+  | lbl=LABEL; COLON       ;  { Label    lbl     }
