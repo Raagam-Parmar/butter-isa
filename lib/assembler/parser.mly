@@ -49,10 +49,10 @@ let instruction :=
   | LOAD ; rs1=REG; rs2=REG;  { Load  (rs1, rs2) }
   | STORE; rs1=REG; rs2=REG;  { Store (rs1, rs2) }
 
-  | LUI  ;          imm=IMM;  { Lui         imm  }
-  | LLI  ;          imm=IMM;  { Lli         imm  }
-  | LI   ;     imm=IMM     ;  { Li      imm      }
-  | LA   ;     lbl=LABEL   ;  { La      lbl      }
+  | LUI  ;          imm=IMM;  { Lui imm }
+  | LLI  ;          imm=IMM;  { Lli imm }
+  | LI   ;     imm=IMM     ;  { Li  imm }
+  | LA   ;     lbl=LABEL   ;  { La  lbl }
 
   | MOV  ; rs1=REG; rs2=REG;  { Move  (rs1, rs2) }
   | ADD  ; rs1=REG; rs2=REG;  { Add   (rs1, rs2) }
@@ -74,4 +74,4 @@ let instruction :=
   | DPAGE;          rs2=REG;  { DPage       rs2  }
   | IPAGE;          rs2=REG;  { IPage       rs2  }
 
-  | lbl=LABEL; COLON       ;  { Label    lbl     }
+  | lbl=LABEL; COLON       ;  { Label lbl }

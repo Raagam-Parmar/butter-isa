@@ -40,9 +40,9 @@ rule read =
 
   | "beqz"      { BEQZ }
   | "bltz"      { BLTZ }
-  | "bgez"      { BGEZ }
-  | "bgtz"      { BGTZ }
   | "blez"      { BLEZ }
+  | "bgtz"      { BGTZ }
+  | "bgez"      { BGEZ }
   | "bnez"      { BNEZ }
 
   | "jump"      { JUMP }

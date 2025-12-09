@@ -1,5 +1,5 @@
 (library
  (name butter_isa)
- (modules base mnemonics register)
+ (modules base register)
  (libraries common)
 )

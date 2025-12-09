@@ -1,6 +1,6 @@
 (library
  (name butter_as)
- (modules ast parser lexer butter_as assembler)
+ (modules ast parser lexer butter_as assembler mnemonics)
  (libraries menhirLib butter_isa common))
 
 (menhir

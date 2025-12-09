@@ -1,96 +1,136 @@
 open Ast
-open Common.Bits
+open Mnemonics
+open Butter_isa
+
+exception RepeatedLabel of string
+exception UnknownLabel of string
+exception UnexpandedInstruction
 
 module SymTbl = Map.Make(String)
 
-let is_base = function
-  | Load _ | Store _ | Lui _ | Lli _ | Move _ | Add _ | Sub _ | And _ | Or _
-  | Not _ | Beqz _ | Bltz _ | Jump _ | StPC _ | DPage _ | IPage _ -> true
-
-  | Li _ | La _ | Bgez _ | Bgtz _ | Blez _ | Bnez _ | Label _ -> false
-
-
-let expansion_map = function
-  | Load _ | Store _ | Lui _ | Lli _ | Move _ | Add _ | Sub _ | And _ | Or _
-  | Not _ | Beqz _ | Bltz _ | Jump _ | StPC _ | DPage _ | IPage _ -> 1
-
-  | Li _ | La _ -> 2
-  | Bgez _ -> 2
-  | Bgtz _ -> 1
-  | Blez _ -> 2
-  | Bnez _ -> 2
-  | Label _ -> 0
-
-
-
-let expand instruction  =
+(** Expand pseudi-instruction to base instruction(s) *)
+let expand_i instruction  =
   match instruction with
-  | Load (rs1, rs2) -> [Load (rs1, rs2)]
-  | Store (rs1, rs2) -> [Store (rs1, rs2)]
+  | Load  (rs1, rs2) -> load rs1 rs2
+  | Store (rs1, rs2) -> store rs1 rs2
 
-  | Lui        imm  -> [ Lui        imm  ]
-  | Lli        imm  -> [ Lli        imm  ]
-  | Li     imm      -> expand_li imm
-  | La     lbl      -> expand_la lbl
+  | Lui imm  -> lui imm
+  | Lli imm  -> lli imm
+  | Li  imm  -> li imm
+  | La  lbl  -> [ La lbl ]
 
-  | Move (rs1, rs2) -> [ Move (rs1, rs2) ]
-  | Add  (rs1 ,rs2) -> [ Add  (rs1, rs2) ]
-  | Sub  (rs1, rs2) -> [ Sub  (rs1, rs2) ]
-  | And  (rs1, rs2) -> [ And  (rs1, rs2) ]
-  | Or   (rs1, rs2) -> [ Or   (rs1, rs2) ]
-  | Not   rs1       -> [ Not   rs1       ]
+  | Move (rs1, rs2) -> mov rs1 rs2
+  | Add  (rs1 ,rs2) -> add rs1 rs2
+  | Sub  (rs1, rs2) -> sub rs1 rs2
+  | And  (rs1, rs2) -> andd rs1 rs2
+  | Or   (rs1, rs2) -> orr rs1 rs2
+  | Not   rs1       -> nott rs1
 
-  | Beqz (rs1, rs2) -> [ Beqz (rs1, rs2) ]
-  | Bltz (rs1, rs2) -> [ Bltz (rs1, rs2) ]
-  | Bgez (rs1, rs2) -> [ Bltz (rs2, rs1) ;
-                         Beqz (rs1, rs2) ]
-  | Bgtz (rs1, rs2) -> [ Bltz (rs2, rs1) ]
-  | Blez (rs1, rs2) -> [ Bltz (rs1, rs2) ;
-                         Beqz (rs1, rs2) ]
-  | Bnez (rs1, rs2) -> [ Bltz (rs1, rs2) ;
-                         Bltz (rs2, rs2) ]
+  | Beqz (rs1, rs2) -> beqz rs1 rs2
+  | Bltz (rs1, rs2) -> bltz rs1 rs2
+  | Bgez (rs1, rs2) -> bgez rs1 rs2
+  | Bgtz (rs1, rs2) -> bgtz rs1 rs2
+  | Blez (rs1, rs2) -> blez rs1 rs2
+  | Bnez (rs1, rs2) -> bnez rs1 rs2
 
-  | Jump       rs2  -> [ Jump       rs2  ]
-  | StPC  rs1       -> [ StPC  rs1       ]
+  | Jump       rs2  -> jump rs2
+  | StPC  rs1       -> stpc rs1
 
-  | DPage      rs2  -> [ DPage       rs2 ]
-  | IPage      rs2  -> [ IPage       rs2 ]
+  | DPage      rs2  -> dpage rs2
+  | IPage      rs2  -> ipage rs2
 
-  | Label lbl ->       [ Label    lbl    ]
+  | Label lbl -> [ Label lbl ]
 
 
-(* | Load  of Register.t * Register.t
-   | Store of Register.t * Register.t
+(** Expand all pseudi-instructions in a program *)
+let expand_p program =
+  List.concat (List.map expand_i program)
 
-   | Lui   of 'a
-   | Lli   of 'a
-   | Li    of 'a (* pseudo-instruction *)
-   | La    of 'l (* pseudo-instruction *)
 
-   | Move  of Register.t * Register.t
-   | Add   of Register.t * Register.t
-   | Sub   of Register.t * Register.t
-   | And   of Register.t * Register.t
-   | Or    of Register.t * Register.t
-   | Not   of Register.t
+let add_symbol_i symtbl n instruction =
+  match instruction with
+  | Label lbl ->
+    if SymTbl.mem lbl symtbl
+    then raise (RepeatedLabel lbl)
+    else
+      SymTbl.add lbl n symtbl
 
-   | Beqz  of Register.t * Register.t
-   | Bltz  of Register.t * Register.t
-   | Bgez  of Register.t * Register.t (* pseudo-instruction *)
-   | Bgtz  of Register.t * Register.t (* pseudo-instruction *)
-   | Blez  of Register.t * Register.t (* pseudo-instruction *)
-   | Bnez  of Register.t * Register.t (* pseudo-instruction *)
+  | _ -> symtbl
 
-   | Jump  of Register.t
-   | StPC  of Register.t
 
-   | DPage of Register.t
-   | IPage of Register.t
+let rec add_symbol_p symtbl program n =
+  match program with
+  | [] -> symtbl
+  | i :: is ->
+    let symtbl' = add_symbol_i symtbl n i in
+    add_symbol_p symtbl' is (n + 1)
 
-   | Label of 'l pseudo-instruction *)
+
+let populate_symtbl symtbl program =
+  add_symbol_p symtbl program 0
+
+
+let resolve_label_i symtbl instruction =
+  match instruction with
+  | La lbl ->
+    let line_no =
+      match SymTbl.find_opt lbl symtbl with
+      | None -> raise (UnknownLabel lbl)
+      | Some n -> n
+    in
+    li line_no
+
+  | _ -> [ instruction ]
+
+
+let resolve_label_p symtbl program =
+  List.concat (List.map (resolve_label_i symtbl) program)
+
+
+let reduce_i instruction =
+  match instruction with
+  | Load  (rs1, rs2) -> Base.Load  (rs1, rs2)
+  | Store (rs1, rs2) -> Base.Store (rs1, rs2)
+
+  | Lui imm  -> Base.Lui imm
+  | Lli imm  -> Base.Lli imm
+
+  | Move (rs1, rs2) -> Base.Move (rs1, rs2)
+  | Add  (rs1 ,rs2) -> Base.Add  (rs1 ,rs2)
+  | Sub  (rs1, rs2) -> Base.Sub  (rs1, rs2)
+  | And  (rs1, rs2) -> Base.And  (rs1, rs2)
+  | Or   (rs1, rs2) -> Base.Or   (rs1, rs2)
+  | Not   rs1       -> Base.Not   rs1
+
+  | Beqz (rs1, rs2) -> Base.Beqz (rs1, rs2)
+  | Bltz (rs1, rs2) -> Base.Bltz (rs1, rs2)
+  | Bgtz (rs1, rs2) -> Base.Bgtz (rs1, rs2)
+
+  | Jump       rs2  -> Base.Jump       rs2
+  | StPC  rs1       -> Base.StPC  rs1
+
+  | DPage      rs2  -> Base.DPage      rs2
+  | IPage      rs2  -> Base.IPage      rs2
+
+  | Li _ | La _
+  | Bgez _ | Blez _ | Bnez _
+  | Label _ -> raise UnexpandedInstruction
+
+
+let reduce_p program =
+  List.map reduce_i program
+
+
+let assemble program =
+  let expanded_program = expand_p program in
+  let empty = SymTbl.empty in
+  let symtbl = populate_symtbl empty expanded_program in
+  let resolved_program = resolve_label_p symtbl expanded_program in
+  let reduced_program = reduce_p resolved_program in
+  reduced_program
+
 
 let parse s =
   let lexbuf = Lexing.from_string s in
   let ast = Parser.main Lexer.read lexbuf in
   ast
-
