@@ -5,7 +5,7 @@
 
 (menhir
  (modules parser)
- (flags --exn-carries-state --trace --dump)
+ ; (flags --exn-carries-state --trace --dump)
  ; (flags --exn-carries-state)
  ; (flags --strict)
  )

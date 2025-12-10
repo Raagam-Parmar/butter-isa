@@ -1,0 +1,456 @@
+main: REG
+##
+## Ends in an error in state: 0.
+##
+## main' -> . main [ # ]
+##
+## The known suffix of the stack is as follows:
+##
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: SUB SUB
+##
+## Ends in an error in state: 1.
+##
+## instruction -> SUB . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## SUB
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: SUB REG SUB
+##
+## Ends in an error in state: 2.
+##
+## instruction -> SUB REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## SUB REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: STPC SUB
+##
+## Ends in an error in state: 4.
+##
+## instruction -> STPC . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## STPC
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: STORE SUB
+##
+## Ends in an error in state: 6.
+##
+## instruction -> STORE . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## STORE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: STORE REG SUB
+##
+## Ends in an error in state: 7.
+##
+## instruction -> STORE REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## STORE REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: OR SUB
+##
+## Ends in an error in state: 9.
+##
+## instruction -> OR . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## OR
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: OR REG SUB
+##
+## Ends in an error in state: 10.
+##
+## instruction -> OR REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## OR REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: NOT SUB
+##
+## Ends in an error in state: 12.
+##
+## instruction -> NOT . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## NOT
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: MOV SUB
+##
+## Ends in an error in state: 14.
+##
+## instruction -> MOV . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## MOV
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: MOV REG SUB
+##
+## Ends in an error in state: 15.
+##
+## instruction -> MOV REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## MOV REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LUI SUB
+##
+## Ends in an error in state: 17.
+##
+## instruction -> LUI . IMM [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LUI
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LOAD SUB
+##
+## Ends in an error in state: 19.
+##
+## instruction -> LOAD . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LOAD
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LOAD REG SUB
+##
+## Ends in an error in state: 20.
+##
+## instruction -> LOAD REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LOAD REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LLI SUB
+##
+## Ends in an error in state: 22.
+##
+## instruction -> LLI . IMM [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LLI
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LI SUB
+##
+## Ends in an error in state: 24.
+##
+## instruction -> LI . IMM [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LI
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LABEL SUB
+##
+## Ends in an error in state: 26.
+##
+## instruction -> LABEL . COLON [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LABEL
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: LA SUB
+##
+## Ends in an error in state: 28.
+##
+## instruction -> LA . LABEL [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## LA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: JUMP SUB
+##
+## Ends in an error in state: 30.
+##
+## instruction -> JUMP . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## JUMP
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: IPAGE SUB
+##
+## Ends in an error in state: 32.
+##
+## instruction -> IPAGE . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## IPAGE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: DPAGE SUB
+##
+## Ends in an error in state: 34.
+##
+## instruction -> DPAGE . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## DPAGE
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BNEZ SUB
+##
+## Ends in an error in state: 36.
+##
+## instruction -> BNEZ . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BNEZ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BNEZ REG SUB
+##
+## Ends in an error in state: 37.
+##
+## instruction -> BNEZ REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BNEZ REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BLTZ SUB
+##
+## Ends in an error in state: 39.
+##
+## instruction -> BLTZ . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BLTZ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BLTZ REG SUB
+##
+## Ends in an error in state: 40.
+##
+## instruction -> BLTZ REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BLTZ REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BLEZ SUB
+##
+## Ends in an error in state: 42.
+##
+## instruction -> BLEZ . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BLEZ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BLEZ REG SUB
+##
+## Ends in an error in state: 43.
+##
+## instruction -> BLEZ REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BLEZ REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BGTZ SUB
+##
+## Ends in an error in state: 45.
+##
+## instruction -> BGTZ . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BGTZ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BGTZ REG SUB
+##
+## Ends in an error in state: 46.
+##
+## instruction -> BGTZ REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BGTZ REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BGEZ SUB
+##
+## Ends in an error in state: 48.
+##
+## instruction -> BGEZ . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BGEZ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BGEZ REG SUB
+##
+## Ends in an error in state: 49.
+##
+## instruction -> BGEZ REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BGEZ REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BEQZ SUB
+##
+## Ends in an error in state: 51.
+##
+## instruction -> BEQZ . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BEQZ
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: BEQZ REG SUB
+##
+## Ends in an error in state: 52.
+##
+## instruction -> BEQZ REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## BEQZ REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: AND SUB
+##
+## Ends in an error in state: 54.
+##
+## instruction -> AND . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## AND
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: AND REG SUB
+##
+## Ends in an error in state: 55.
+##
+## instruction -> AND REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## AND REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: ADD SUB
+##
+## Ends in an error in state: 57.
+##
+## instruction -> ADD . REG REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## ADD
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: ADD REG SUB
+##
+## Ends in an error in state: 58.
+##
+## instruction -> ADD REG . REG [ SUB STPC STORE OR NOT MOV LUI LOAD LLI LI LABEL LA JUMP IPAGE EOF DPAGE BNEZ BLTZ BLEZ BGTZ BGEZ BEQZ AND ADD ]
+##
+## The known suffix of the stack is as follows:
+## ADD REG
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: DPAGE REG REG
+##
+## Ends in an error in state: 63.
+##
+## list(instruction) -> instruction . list(instruction) [ EOF ]
+##
+## The known suffix of the stack is as follows:
+## instruction
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
