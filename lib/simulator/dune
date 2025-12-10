@@ -1,5 +1,5 @@
 (library
  (name butter_sim)
  (libraries butter_isa common)
- (modules ram simulate regfile)
+ (modules ram cpu regfile)
 )

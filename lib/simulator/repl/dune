@@ -1,0 +1,14 @@
+(library
+ (name butter_sim_repl)
+ (libraries menhirLib butter_isa common butter_sim)
+ (modules ast parser lexer))
+
+(menhir
+ (modules parser)
+ ; (flags --exn-carries-state --trace --dump)
+ ; (flags --exn-carries-state)
+ ; (flags --strict)
+ )
+
+(ocamllex
+ (modules lexer))

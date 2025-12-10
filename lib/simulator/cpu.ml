@@ -1,11 +1,11 @@
-open Butter_isa.Base
+open Butter_isa
 open Common.Bits
 
 exception PCOutOfBounds
 
 
 type 'a state =
-  { rom: instruction Ram.t;
+  { rom: Base.instruction Ram.t;
     length: int;
     ram: 'a Ram.t;
     regfile: 'a Regfile.t;
@@ -15,6 +15,20 @@ type 'a state =
   }
 
 
+(** Initial program state *)
+let init program =
+  { rom = program;
+    length = Array.length program;
+    ram = Ram.create 256 Bits8.zero;
+    regfile = Regfile.create Bits8.zero;
+    pc = Bits8.zero;
+    dpage = Bits8.zero;
+    ipage = Bits8.zero
+  }
+
+
+(** Step through one cycle.
+    Raise [PCOutOfBounds] if pc is out of program bounds. *)
 let step state =
   let rom = state.rom in
   let length = state.length in
@@ -23,7 +37,11 @@ let step state =
   let pc = state.pc in
   let int_pc = Bits8.to_int pc in
 
-  let () = if int_pc >= length then raise PCOutOfBounds else () in
+  let () =
+    if int_pc >= length
+    then raise PCOutOfBounds
+    else ()
+  in
 
   let inst = Ram.read rom int_pc in
 
@@ -144,44 +162,89 @@ let step state =
     { state with pc = Bits8.succ pc; ipage = vrs2 }
 
 
-let init program =
-  { rom = program;
-    length = Array.length program;
-    ram = Ram.create 256 Bits8.zero;
-    regfile = Regfile.create Bits8.zero;
-    pc = Bits8.zero;
-    dpage = Bits8.zero;
-    ipage = Bits8.zero
-  }
-
-let pp state =
-  (* let rom = state.rom in *)
-  (* let length = state.length in *)
-  let ram = state.ram in
-  let regfile = state.regfile in
-  let pc = state.pc in
-  (* let int_pc = Bits8.to_int pc in *)
-  (* let inst = Ram.read rom int_pc in *)
-
-  let () = Printf.printf "RAM:\n" in
-  let () = Array.iter (fun m -> Printf.printf "%s\n" (Bits8.to_string m)) ram in
-  let () = Printf.printf "\nRegFile:\n" in
-  let () = Array.iter (fun m -> Printf.printf "%s\n" (Bits8.to_string m)) regfile in
-  let () = Printf.printf "\nPC: %s\n" (Bits8.to_string pc) in
-  ()
-
-
+(** Step through [n] cycles.
+    Raise [PCOutOfBounds] if pc is out of program bounds. *)
 let rec step_n state n =
   if n = 0 then state
   else step_n (step state) (n-1)
 
 
-let rec run_from state =
-  try
-    run_from (step state)
-  with
-  | PCOutOfBounds -> state
+let pp_rom state =
+  let rom = state.rom in
+  Array.map Pretty.pp rom
 
 
-let run program =
-  run_from (init program)
+let pp_rom_with_pc state =
+  let rom = state.rom in
+  let pc = state.pc in
+  let pc_int = Bits8.to_int pc in
+  Array.mapi
+    (fun n inst ->
+       Printf.sprintf "%s %s"
+         (if n = pc_int then "*" else " ")
+         (Pretty.pp inst)
+    )
+    rom
+
+
+let pp_length state =
+  Int.to_string state.length
+
+
+let pp_ram state =
+  let ram = state.ram in
+  Array.mapi
+    (fun i b ->
+       Printf.sprintf "%d\t%s"
+         i
+         (Bits8.to_string b)
+    ) ram
+
+
+let pp_regfile state =
+  let regfile = state.regfile in
+  Array.mapi
+    (fun i b ->
+       Printf.sprintf "r%d\t%s"
+         i
+         (Bits8.to_string b)
+    )
+    regfile
+
+
+let pp_pc state =
+  Bits8.to_string state.pc
+
+
+let pp_dpage state =
+  Bits8.to_string state.dpage
+
+
+let pp_ipage state =
+  Bits8.to_string state.ipage
+
+
+let print_str_array arr =
+  Array.iter print_endline arr
+
+
+let pp_state state =
+  begin
+    print_endline "\nROM:";
+    print_str_array (pp_rom_with_pc state);
+
+    print_endline "\nRAM:";
+    print_str_array (pp_ram state);
+
+    print_endline "\nRegister File:";
+    print_str_array (pp_regfile state);
+
+    print_endline "\nPC:";
+    print_endline (pp_pc state);
+
+    print_endline "\nDpage:";
+    print_endline (pp_dpage state);
+
+    print_endline "\nIpage:";
+    print_endline (pp_ipage state)
+  end

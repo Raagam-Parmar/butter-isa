@@ -1,0 +1,61 @@
+main: REG
+##
+## Ends in an error in state: 0.
+##
+## main' -> . main [ # ]
+##
+## The known suffix of the stack is as follows:
+##
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: STEP STEP
+##
+## Ends in an error in state: 1.
+##
+## command -> STEP . [ EOF ]
+## command -> STEP . INT [ EOF ]
+##
+## The known suffix of the stack is as follows:
+## STEP
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: REGISTER STEP
+##
+## Ends in an error in state: 3.
+##
+## command -> REGISTER . REG [ EOF ]
+##
+## The known suffix of the stack is as follows:
+## REGISTER
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: MEM STEP
+##
+## Ends in an error in state: 6.
+##
+## command -> MEM . INT [ EOF ]
+##
+## The known suffix of the stack is as follows:
+## MEM
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+main: HELP STEP
+##
+## Ends in an error in state: 11.
+##
+## main -> command . EOF [ # ]
+##
+## The known suffix of the stack is as follows:
+## command
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
