@@ -1,9 +1,6 @@
-open Butter_sim.Simulate
+open Butter_sim.Cpu
 open Butter_as.Assembler
-
-let rec to_array = function
-  | [] -> [||]
-  | x :: xs -> Array.append [|x|] (to_array xs)
+open Common.Utils
 
 let multiply =
   "
@@ -43,7 +40,7 @@ let multiply =
   "
 
 
-let assembled = to_array (assemble (parse multiply))
+let assembled = list_to_array (assemble (parse multiply))
 let init_state = init assembled
 let final_state = step_n init_state 200
-let () = pp final_state
+let () = pp_state final_state

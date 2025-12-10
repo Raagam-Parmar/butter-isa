@@ -1,12 +1,8 @@
 open Ast
 open Common.Bits
+open Common.Utils
 
 exception LoadImmediateOutOfBounds of int
-
-(** Checks if [ n ] is in the (inclusive) interval [ [ lo, hi ] ]. *)
-let in_range lo hi n =
-  (lo <= n) && (n <= hi)
-
 
 (* Load Store shorthands *)
 let load  rs1 rs2 = [ Load (rs1, rs2) ]
