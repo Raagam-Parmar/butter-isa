@@ -8,7 +8,7 @@ exception UnexpandedInstruction
 
 module SymTbl = Map.Make(String)
 
-(** Expand pseudi-instruction to base instruction(s) *)
+(** Expand pseudo-instruction to base instruction(s) *)
 let expand_i instruction  =
   match instruction with
   | Load  (rs1, rs2) -> load rs1 rs2
@@ -80,6 +80,7 @@ let resolve_label_i symtbl instruction =
     in
     li line_no
 
+  | Label _ -> []
   | _ -> [ instruction ]
 
 

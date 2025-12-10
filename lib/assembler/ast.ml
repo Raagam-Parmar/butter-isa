@@ -1,13 +1,13 @@
 open Butter_isa
 
-type ('a, 'l) instruction =
+type ('num, 'lbl) instruction =
   | Load  of Register.t * Register.t
   | Store of Register.t * Register.t
 
-  | Lui   of 'a
-  | Lli   of 'a
-  | Li    of 'a (* pseudo-instruction *)
-  | La    of 'l (* pseudo-instruction *)
+  | Lui   of 'num
+  | Lli   of 'num
+  | Li    of 'num (* pseudo-instruction *)
+  | La    of 'lbl (* pseudo-instruction *)
 
   | Move  of Register.t * Register.t
   | Add   of Register.t * Register.t
@@ -29,6 +29,6 @@ type ('a, 'l) instruction =
   | DPage of Register.t
   | IPage of Register.t
 
-  | Label of 'l (* pseudo-instruction *)
+  | Label of 'lbl (* pseudo-instruction *)
 
-type ('a, 'l) program = ('a, 'l) instruction list
+type ('num, 'lbl) program = ('num, 'lbl) instruction list
