@@ -25,8 +25,9 @@ rule read =
 
   | "step"      { STEP }
 
-  | "inst"      { INST }
-  | "mem"       { MEM  }
+  | "inst"      { INST     }
+  | "reg"       { REGISTER }
+  | "mem"       { MEM      }
 
   | "help"      { HELP }
   | "quit"      { QUIT }

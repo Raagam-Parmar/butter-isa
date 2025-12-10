@@ -201,6 +201,10 @@ let pp_ram state =
     ) ram
 
 
+let pp_ram_addr state addr =
+  Bits8.to_string (state.ram.(addr))
+
+
 let pp_regfile state =
   let regfile = state.regfile in
   Array.mapi
@@ -210,6 +214,11 @@ let pp_regfile state =
          (Bits8.to_string b)
     )
     regfile
+
+
+let pp_register state reg =
+  let reg_int = Register.to_int reg in
+  Bits8.to_string (state.regfile.(reg_int))
 
 
 let pp_pc state =
@@ -222,6 +231,12 @@ let pp_dpage state =
 
 let pp_ipage state =
   Bits8.to_string state.ipage
+
+
+let pp_instruction state =
+  let pc_int = Bits8.to_int state.pc in
+  let inst = state.rom.(pc_int) in
+  Pretty.pp inst
 
 
 let print_str_array arr =

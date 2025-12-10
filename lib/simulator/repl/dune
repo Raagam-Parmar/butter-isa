@@ -1,7 +1,7 @@
 (library
  (name butter_sim_repl)
  (libraries menhirLib butter_isa common butter_sim)
- (modules ast parser lexer))
+ (modules ast parser lexer exec))
 
 (menhir
  (modules parser)
