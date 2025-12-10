@@ -1,5 +1,5 @@
 (library
  (name butter_isa)
- (modules base register)
+ (modules base register pretty)
  (libraries common)
 )
