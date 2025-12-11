@@ -14,7 +14,6 @@ let parse s =
   | Error | Failure _ -> None
 
 
-
 let help_text =
   "step     - Step through one cycle
 step n   - Step through `n` cycles
@@ -33,13 +32,13 @@ let exec state command =
 
   | Show_instruction ->
     begin
-      Printf.printf "%s\n" (Cpu.pp_instruction state);
+      Printf.printf "%s\n" (Printer.pp_instruction state);
       state
     end
 
   | Show_reg r ->
     begin
-      Printf.printf "%s\n" (Cpu.pp_register state r);
+      Printf.printf "%s\n" (Printer.pp_register state r);
       state
     end
 
@@ -51,7 +50,7 @@ let exec state command =
           "Error: Address %d out of range.\n"
           addr
       else
-        Printf.printf "%s\n" (Cpu.pp_ram_addr state addr)
+        Printf.printf "%s\n" (Printer.pp_ram_addr state addr)
     in
     state
 
@@ -59,7 +58,7 @@ let exec state command =
   | Quit -> raise QuitREPL
 
 
-let repl initial_state =
+let repl init =
   let rec loop state =
     print_string "> ";
     flush stdout;
@@ -76,4 +75,4 @@ let repl initial_state =
       with QuitREPL ->
         print_endline "Exiting"
   in
-  loop initial_state
+  loop init
