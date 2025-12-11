@@ -1,11 +1,20 @@
-open Butter_isa
+open Butter_isa.Base
 open Common.Bits
+open Common.Utils
 
-exception PCOutOfBounds
+type step_error =
+  | PCOutOfBounds of Bits8.t
+
+
+let report_step_error = function
+  | PCOutOfBounds pc ->
+    Printf.eprintf
+      "Error: Program counter %s is pointing outside of the program range."
+      (Bits8.to_string pc)
 
 
 type 'a state =
-  { rom: Base.instruction Ram.t;
+  { rom: instruction Ram.t;
     length: int;
     ram: 'a Ram.t;
     regfile: 'a Regfile.t;
@@ -27,25 +36,13 @@ let init program =
   }
 
 
-(** Step through one cycle.
-    Raise [PCOutOfBounds] if pc is out of program bounds. *)
-let step state =
-  let rom = state.rom in
-  let length = state.length in
+(** Given instruction to execute, step through one cycle *)
+let stepi state instruction =
   let ram = state.ram in
   let regfile = state.regfile in
   let pc = state.pc in
-  let int_pc = Bits8.to_int pc in
 
-  let () =
-    if int_pc >= length
-    then raise PCOutOfBounds
-    else ()
-  in
-
-  let inst = Ram.read rom int_pc in
-
-  match inst with
+  match instruction with
   | Load (rs1, rs2) ->
     let vrs2 = Regfile.read regfile rs2 in
     let addr = Bits8.to_int vrs2 in
@@ -162,8 +159,22 @@ let step state =
     { state with pc = Bits8.succ pc; ipage = vrs2 }
 
 
-(** Step through [n] cycles.
-    Raise [PCOutOfBounds] if pc is out of program bounds. *)
+(** Step through one cycle *)
+let step state =
+  let pc = state.pc in
+  let int_pc = Bits8.to_int pc in
+  if not (in_range 0 (state.length - 1) int_pc)
+  then Error (PCOutOfBounds pc)
+  else
+    let inst = state.rom.(int_pc) in
+    let state' = stepi state inst in
+    Ok state'
+
+
+(** Step through [n] cycles *)
 let rec step_n state n =
-  if n = 0 then state
-  else step_n (step state) (n-1)
+  if n = 0 then Ok state
+  else
+    match step state with
+    | Ok state' -> step_n state' (n - 1)
+    | Error e -> Error e
