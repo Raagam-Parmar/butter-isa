@@ -26,8 +26,12 @@ rule read =
   | "step"      { STEP }
 
   | "inst"      { INST     }
+  | "prog"      { PROG     }
   | "reg"       { REGISTER }
   | "mem"       { MEM      }
+
+  | "dpage"     { DPAGE }
+  | "ipage"     { IPAGE }
 
   | "help"      { HELP }
   | "quit"      { QUIT }

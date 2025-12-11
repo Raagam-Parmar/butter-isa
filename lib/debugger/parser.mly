@@ -6,8 +6,11 @@
 
 %token STEP
 %token INST
+%token PROG
 %token REGISTER
 %token MEM
+%token DPAGE
+%token IPAGE
 %token HELP
 %token QUIT
 
@@ -25,9 +28,15 @@ let command :=
   | STEP;         { Step 1 }
   | STEP; n=INT;  { Step n }
 
-  | INST;               { Show_instruction }
-  | REGISTER; reg=REG;  { Show_reg reg     }
-  | MEM; addr=INT;      { Show_mem addr    }
+  | INST;               { Show_instruction   }
+  | PROG;               { Show_program       }
+  | REGISTER;           { Show_regfile       }
+  | REGISTER; reg=REG;  { Show_reg reg       }
+  | MEM;                { Show_mem           }
+  | MEM; addr=INT;      { Show_mem_addr addr }
+
+  | DPAGE;              { Show_dpage         }
+  | IPAGE;              { Show_ipage         }
 
   | HELP;  { Help }
   | QUIT;  { Quit }
