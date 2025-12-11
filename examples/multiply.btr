@@ -4,10 +4,10 @@
 # result is stored in r3
 
 # setup
-    li   a     # r1 = a
+    li   5     # r1 = a
     mov  r1 r0
 
-    li   b
+    li   17
     mov  r2 r0 # r2 = b
 
 # calcuation
