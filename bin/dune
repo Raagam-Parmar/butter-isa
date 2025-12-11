@@ -1,4 +1,4 @@
 (executable
  (public_name butter-isa)
- (name main)
- (libraries butter_isa))
+ (name butter_db)
+ (libraries butter_isa butter_sim butter_debugger butter_as common))
