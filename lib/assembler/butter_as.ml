@@ -1,4 +1,3 @@
-module Lexer = Lexer
-module Parser = Parser
-module Ast = Ast
-module Assembler = Assembler
+let parse = Assembler.parse
+let assemble = Assembler.assemble
+let parse_and_assemble = Assembler.parse_and_assemble

@@ -122,6 +122,12 @@ let reduce_p program =
   List.map reduce_i program
 
 
+let parse s =
+  let lexbuf = Lexing.from_string s in
+  let ast = Parser.main Lexer.read lexbuf in
+  ast
+
+
 let assemble program =
   let expanded_program = expand_p program in
   let empty = SymTbl.empty in
@@ -131,7 +137,7 @@ let assemble program =
   reduced_program
 
 
-let parse s =
-  let lexbuf = Lexing.from_string s in
-  let ast = Parser.main Lexer.read lexbuf in
-  ast
+let parse_and_assemble program =
+  program
+  |> parse
+  |> assemble

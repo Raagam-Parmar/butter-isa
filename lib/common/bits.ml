@@ -70,6 +70,7 @@ module Bits4 : sig
   val logor : t -> t -> t
   val lognot : t -> t
   val shift_left : t -> t -> t
+  val shift_right : t -> t -> t
   val compare : t -> t -> int
   val to_string : t -> string
 end = struct
@@ -110,6 +111,7 @@ end = struct
   let logor = lift2 (Int.logor)
   let lognot = lift1 (Int.lognot)
   let shift_left = lift2 (Int.shift_left)
+  let shift_right = lift2 (Int.shift_right)
 
   let compare b1 b2 =
     Int.compare (to_int b1) (to_int b2)
@@ -120,7 +122,7 @@ end = struct
     let s1 = Bit.to_string b1 in
     let s2 = Bit.to_string b2 in
     let s3 = Bit.to_string b3 in
-    s0 ^ s1 ^ s2 ^ s3
+    s3 ^ s2 ^ s1 ^ s0
 end
 
 
@@ -138,6 +140,7 @@ module Bits8 : sig
   val logor : t -> t -> t
   val lognot : t -> t
   val shift_left : t -> t -> t
+  val shift_right : t -> t -> t
   val compare : t -> t -> int
   val to_string : t -> string
 
@@ -179,6 +182,7 @@ end = struct
   let logor = lift2 (Int.logor)
   let lognot = lift1 (Int.lognot)
   let shift_left = lift2 (Int.shift_left)
+  let shift_right = lift2 (Int.shift_right)
 
   let compare b1 b2 =
     Int.compare (to_int b1) (to_int b2)
@@ -193,5 +197,16 @@ end = struct
     let s5 = Bit.to_string b5 in
     let s6 = Bit.to_string b6 in
     let s7 = Bit.to_string b7 in
-    s0 ^ s1 ^ s2 ^ s3 ^ s4 ^ s5 ^ s6 ^ s7
+    s7 ^ s6 ^ s5 ^ s4 ^ s3 ^ s2 ^ s1 ^ s0
 end
+
+
+let bits4_to_bits8 b4 =
+  b4
+  |> Bits4.to_int
+  |> Bits8.from_int_mod
+
+let bits8_to_bits4 b8 =
+  b8
+  |> Bits8.to_int
+  |> Bits4.from_int

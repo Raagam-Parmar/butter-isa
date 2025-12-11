@@ -18,8 +18,8 @@ type ('num, 'lbl) instruction =
 
   | Beqz  of Register.t * Register.t
   | Bltz  of Register.t * Register.t
+  | Bgtz  of Register.t * Register.t
   | Bgez  of Register.t * Register.t (* pseudo-instruction *)
-  | Bgtz  of Register.t * Register.t (* pseudo-instruction *)
   | Blez  of Register.t * Register.t (* pseudo-instruction *)
   | Bnez  of Register.t * Register.t (* pseudo-instruction *)
 
