@@ -8,8 +8,8 @@ type step_error =
 
 let report_step_error = function
   | PCOutOfBounds pc ->
-    Printf.eprintf
-      "Error: Program counter %s is pointing outside of the program range."
+    Printf.printf
+      "Error: Program counter %s is pointing outside of the program range.\n"
       (Bits8.to_string pc)
 
 
@@ -173,8 +173,8 @@ let step state =
 
 (** Step through [n] cycles *)
 let rec step_n state n =
-  if n = 0 then Ok state
+  if n = 0 then (state, None)
   else
     match step state with
     | Ok state' -> step_n state' (n - 1)
-    | Error e -> Error e
+    | Error e -> (state, Some e)

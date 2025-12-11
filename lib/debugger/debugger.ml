@@ -36,10 +36,10 @@ let exec state command =
   | Step n ->
     begin
       match Cpu.step_n state n with
-      | Ok state' -> state'
-      | Error e ->
+      | (state', None) -> state'
+      | (state', Some e) ->
         Cpu.report_step_error e;
-        state
+        state'
     end
 
   | Show_instruction ->
