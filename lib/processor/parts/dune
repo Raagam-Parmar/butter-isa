@@ -1,0 +1,4 @@
+(library
+ (name butter_processor)
+ (modules types basics adders alu stateful)
+ (libraries common))

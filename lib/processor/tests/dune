@@ -1,0 +1,3 @@
+(tests
+ (names basics adders)
+ (libraries butter_processor common ounit2))
